@@ -1,6 +1,6 @@
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import CourseForm from "../../_components/course-form";
+import CreateCourseForm from "../../_components/create-course-form";
 import Link from "next/link";
 
 function CreateCoursePage() {
@@ -18,7 +18,7 @@ function CreateCoursePage() {
         </Link>
         <h1>Create Courses</h1>
       </div>
-      <CourseForm />
+      <CreateCourseForm />
     </>
   );
 }

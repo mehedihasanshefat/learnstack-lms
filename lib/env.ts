@@ -18,19 +18,16 @@ export const env = createEnv({
   },
 
   /**
-   * The prefix that client-side variables must have. This is enforced both at
-   * a type-level and at runtime.
+   * The prefix used by Next.js for client-side environment variables.
    */
-  clientPrefix: "PUBLIC_",
+  clientPrefix: "NEXT_PUBLIC_", // ✅ FIXED
 
   client: {
-    // PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
-    NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES: z.string().min(1),
+    NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES: z.string().min(1), // now valid
   },
 
   /**
-   * What object holds the environment variables at runtime. This is usually
-   * `process.env` or `import.meta.env`.
+   * Runtime env variables.
    */
   runtimeEnv: process.env,
 

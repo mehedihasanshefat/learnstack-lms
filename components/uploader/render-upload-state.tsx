@@ -60,6 +60,7 @@ export function RenderUploadedState({
         alt="Uploaded file"
         fill
         className="object-contain p-2"
+        unoptimized
       />
       <Button
         variant="destructive"

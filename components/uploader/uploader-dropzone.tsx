@@ -11,6 +11,7 @@ import {
 } from "./render-upload-state";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
+import { useConstructUrl } from "@/hooks/use-construct-url";
 
 interface TUploaderState {
   id: string | null;
@@ -30,6 +31,7 @@ interface TUploaderDropzone {
 }
 
 function UploaderDropzone({ value, onChange }: TUploaderDropzone) {
+  const fileUrl = useConstructUrl(value || "");
   const [fileState, setFileSate] = useState<TUploaderState>({
     error: false,
     file: null,
@@ -39,6 +41,7 @@ function UploaderDropzone({ value, onChange }: TUploaderDropzone) {
     isDeleting: false,
     fileType: "image",
     key: value,
+    objectUrl: fileUrl,
   });
 
   const uploadFile = async (file: File) => {

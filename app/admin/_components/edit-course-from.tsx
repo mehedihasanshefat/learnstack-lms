@@ -20,32 +20,40 @@ import RichTextEditor from "@/components/text-editor/rich-text-editor";
 import UploaderDropzone from "@/components/uploader/uploader-dropzone";
 import { useTransition } from "react";
 import { tryCatch } from "@/hooks/try-catch";
-import { createCourse } from "../courses/create/actions";
+
+import { editCourse } from "../courses/[courseId]/edit/actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { AdminSingleCourseType } from "@/app/data/admin/admin-get-course";
 
-function CourseForm() {
+interface TEditCourseForm {
+  data: AdminSingleCourseType;
+}
+
+function EditCourseForm({ data }: TEditCourseForm) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const form = useForm<CourseType>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      fileKey: "",
-      price: 0,
-      duration: 0,
-      levels: "Beginner",
-      category: "Health & Fitness",
-      status: "Draft",
-      slug: "",
-      smallDescription: "",
+      title: data.title,
+      description: data.description,
+      fileKey: data.fileKey,
+      price: data.price,
+      duration: data.duration,
+      levels: data.levels,
+      category: data.category as CourseType["category"],
+      status: data.status,
+      slug: data.slug,
+      smallDescription: data.smallDescription,
     },
   });
 
   const onSubmit: SubmitHandler<CourseType> = (values: CourseType) => {
     startTransition(async () => {
-      const { data: result, error } = await tryCatch(createCourse(values));
+      const { data: result, error } = await tryCatch(
+        editCourse(values, data.id),
+      );
       if (error) {
         toast.error("An unexpected error occured. Please try again");
         return;
@@ -307,11 +315,11 @@ function CourseForm() {
           <Button type="submit" disabled={isPending}>
             {isPending ? (
               <>
-                Creating... <Loader2 className="ml-1 animate-spin" />
+                Updating... <Loader2 className="ml-1 animate-spin" />
               </>
             ) : (
               <>
-                Create Course
+                Update Course
                 <PlusIcon className="ml-1" size="16" />
               </>
             )}
@@ -322,4 +330,4 @@ function CourseForm() {
   );
 }
 
-export default CourseForm;
+export default EditCourseForm;
