@@ -27,7 +27,9 @@ import { useRouter } from "next/navigation";
 function CreateCourseForm() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+
   const form = useForm<CourseType>({
+    // resolver: zodResolver(courseSchema) as Resolver<CourseType>,
     resolver: zodResolver(courseSchema),
     defaultValues: {
       title: "",
