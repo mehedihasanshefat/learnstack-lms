@@ -2,6 +2,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import EditorMenubar from "./editor-menubar";
+import { getEditorContent } from "@/lib/getEditorContent";
 
 const RichTextEditor = ({ field }: { field: any }) => {
   const editor = useEditor({
@@ -20,7 +21,7 @@ const RichTextEditor = ({ field }: { field: any }) => {
     onUpdate: ({ editor }) => {
       field.onChange(JSON.stringify(editor.getJSON()));
     },
-    content: field.value ? JSON.parse(field.value) : `<p>Hello World</p>`,
+    content: getEditorContent(field.value),
     immediatelyRender: false,
   });
 

@@ -315,13 +315,11 @@ function CourseStructure({ data }: TCourseStructure) {
                             {item.title}
                           </p>
                         </div>
-                        <Button size="icon" variant="outline">
-                          {/* <Trash2 className="size-4" /> */}
-                          <DeleteChapter
-                            courseId={data.id}
-                            chapterId={item.id}
-                          />
-                        </Button>
+                        {/* <Button size="icon" variant="outline">
+                        <Trash2 className="size-4" />
+                        </Button> */}
+
+                        <DeleteChapter courseId={data.id} chapterId={item.id} />
                       </div>
                       <CollapsibleContent>
                         <div className="p-1">

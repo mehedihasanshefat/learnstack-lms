@@ -23,10 +23,12 @@ import { tryCatch } from "@/hooks/try-catch";
 import { createCourse } from "../courses/create/actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useConfetti } from "@/hooks/use-confetti";
 
 function CreateCourseForm() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const { triggerConfetti } = useConfetti();
 
   const form = useForm<CourseType>({
     // resolver: zodResolver(courseSchema) as Resolver<CourseType>,
@@ -54,6 +56,7 @@ function CreateCourseForm() {
       }
       if (result.status === "success") {
         toast.success(result.message);
+        triggerConfetti();
         form.reset();
         router.push("/admin/courses");
       } else if (result.status === "error") {
@@ -173,6 +176,7 @@ function CreateCourseForm() {
                   <UploaderDropzone
                     value={field.value}
                     onChange={field.onChange}
+                    fileTypeAccepted="image"
                   />
 
                   {fieldState.invalid && (

@@ -179,6 +179,7 @@ function EditCourseForm({ data }: TEditCourseForm) {
                   <UploaderDropzone
                     value={field.value}
                     onChange={field.onChange}
+                    fileTypeAccepted="image"
                   />
 
                   {fieldState.invalid && (
