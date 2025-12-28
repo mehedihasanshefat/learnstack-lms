@@ -32,7 +32,6 @@ import {
   ChevronRight,
   FileText,
   GripVertical,
-  Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -41,6 +40,10 @@ import {
   reorderChapters,
   reorderLessons,
 } from "../courses/[courseId]/edit/actions";
+import NewChapterModal from "./new-chapter-modal";
+import NewLessonModal from "./new-lesson-modal";
+import DeleteLesson from "./delete-lesson";
+import DeleteChapter from "./delete-chapter";
 
 interface TCourseStructure {
   data: AdminSingleCourseType;
@@ -276,6 +279,7 @@ function CourseStructure({ data }: TCourseStructure) {
       <Card>
         <CardHeader className="border-border flex flex-row items-center justify-between border-b">
           <CardTitle>Chapters</CardTitle>
+          <NewChapterModal courseId={data.id} />
         </CardHeader>
         <CardContent className="space-y-8">
           <SortableContext strategy={verticalListSortingStrategy} items={items}>
@@ -312,7 +316,11 @@ function CourseStructure({ data }: TCourseStructure) {
                           </p>
                         </div>
                         <Button size="icon" variant="outline">
-                          <Trash2 className="size-4" />
+                          {/* <Trash2 className="size-4" /> */}
+                          <DeleteChapter
+                            courseId={data.id}
+                            chapterId={item.id}
+                          />
                         </Button>
                       </div>
                       <CollapsibleContent>
@@ -347,18 +355,21 @@ function CourseStructure({ data }: TCourseStructure) {
                                         {lesson.title}
                                       </Link>
                                     </div>
-                                    <Button variant="outline" size="icon">
-                                      <Trash2 className="size-4" />
-                                    </Button>
+                                    <DeleteLesson
+                                      chapterId={item.id}
+                                      courseId={data.id}
+                                      lessonId={lesson.id}
+                                    />
                                   </div>
                                 )}
                               </SortableItem>
                             ))}
                           </SortableContext>
                           <div className="p-2">
-                            <Button variant="outline" className="w-full">
-                              Create New Lesson
-                            </Button>
+                            <NewLessonModal
+                              chapterId={item.id}
+                              courseId={data.id}
+                            />
                           </div>
                         </div>
                       </CollapsibleContent>
