@@ -6,7 +6,9 @@ function PublicLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className="container mx-auto mb-32 px-4 md:px-6 lg:px-8">
+        {children}
+      </main>
       <Footer />
     </>
   );

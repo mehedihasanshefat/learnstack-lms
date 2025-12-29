@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20">
-      <div className="contsiner absolute inset-0 -z-10 mx-auto">
+      <div className="absolute inset-0 -z-10 container mx-auto">
         <div className="bg-primary/20 absolute top-20 left-20 h-72 w-72 rounded-full opacity-50 blur-3xl"></div>
         <div className="bg-accent/20 absolute right-20 bottom-20 h-72 w-72 rounded-full opacity-50 blur-3xl"></div>
       </div>
