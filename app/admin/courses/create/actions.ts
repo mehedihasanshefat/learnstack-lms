@@ -5,6 +5,8 @@ import { ApiResponse } from "@/lib/types";
 import { courseSchema, CourseType } from "@/schemas/courseSchema";
 import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { request } from "@arcjet/next";
+import Stripe from "stripe";
+import { stripe } from "@/lib/stripe";
 
 const aj = arcjet
   // .withRule(
@@ -49,11 +51,19 @@ export async function createCourse(values: CourseType): Promise<ApiResponse> {
         message: "Invalid form data",
       };
     }
-
-    const data = await prisma.course.create({
+    const data = await stripe.products.create({
+      name: validation.data.title,
+      description: validation.data.smallDescription,
+      default_price_data: {
+        currency: "usd",
+        unit_amount: validation.data.price * 100,
+      },
+    });
+    await prisma.course.create({
       data: {
         ...validation.data,
         userId: session?.user.id as string,
+        stripePriceId: data.default_price as string,
       },
     });
 
