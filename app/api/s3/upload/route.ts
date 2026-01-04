@@ -5,16 +5,16 @@ import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3 } from "@/lib/s3Client";
-import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 
 const aj = arcjet
-  .withRule(
-    detectBot({
-      mode: "LIVE",
-      allow: [],
-    }),
-  )
+  // .withRule(
+  //   detectBot({
+  //     mode: "LIVE",
+  //     allow: [],
+  //   }),
+  // )
   .withRule(
     fixedWindow({
       mode: "LIVE",

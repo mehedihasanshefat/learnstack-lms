@@ -4,19 +4,19 @@ import { requireAdmin } from "@/app/data/admin/require-admin";
 import { courseSchema, CourseType } from "@/schemas/courseSchema";
 import { ApiResponse } from "@/lib/types";
 import { prisma } from "@/lib/db";
-import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { request } from "@arcjet/next";
 import { revalidatePath } from "next/cache";
 import { chapterSchema, ChapterType } from "@/schemas/chapterSchema";
 import { lessonSchema, LessonType } from "@/schemas/lessonSchema";
 
 const aj = arcjet
-  .withRule(
-    detectBot({
-      mode: "LIVE",
-      allow: [],
-    }),
-  )
+  // .withRule(
+  //   detectBot({
+  //     mode: "LIVE",
+  //     allow: [],
+  //   }),
+  // )
   .withRule(
     fixedWindow({
       mode: "LIVE",

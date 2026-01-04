@@ -3,16 +3,16 @@ import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 import { ApiResponse } from "@/lib/types";
 import { courseSchema, CourseType } from "@/schemas/courseSchema";
-import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { request } from "@arcjet/next";
 
 const aj = arcjet
-  .withRule(
-    detectBot({
-      mode: "LIVE",
-      allow: [],
-    }),
-  )
+  // .withRule(
+  //   detectBot({
+  //     mode: "LIVE",
+  //     allow: [],
+  //   }),
+  // )
   .withRule(
     fixedWindow({
       mode: "LIVE",
