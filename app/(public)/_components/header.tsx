@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
+import { MobileNavDropdown } from "./mobile-nav-dropdown";
 
 function Header({ className }: { className?: string }) {
   const { data: session, isPending } = authClient.useSession();
@@ -67,7 +68,7 @@ function Header({ className }: { className?: string }) {
           {isPending ? null : session ? (
             <UserDropdown name={session.user.name} email={session.user.email} />
           ) : (
-            <Menu size={20} /> // or something else for mobile
+            <MobileNavDropdown /> // or something else for mobile
           )}
         </div>
       </nav>

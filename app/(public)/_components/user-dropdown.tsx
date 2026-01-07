@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   LogOut,
@@ -19,6 +20,8 @@ import {
   LayoutDashboardIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 interface TUserDropdown {
   name: string;
@@ -29,6 +32,21 @@ interface TUserDropdown {
 //image = "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
 
 export function UserDropdown({ name, email, image }: TUserDropdown) {
+  const router = useRouter();
+  const handleSignOut = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/"); // redirect to login page
+          toast.success("Signed out successfully");
+        },
+        onError: (error) => {
+          console.log(error.error.message);
+          toast.error("Error signing out. Please try again.");
+        },
+      },
+    });
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -103,7 +121,7 @@ export function UserDropdown({ name, email, image }: TUserDropdown) {
         <DropdownMenuSeparator />
 
         {/* Logout Item */}
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant="destructive" onClick={handleSignOut}>
           <LogOut className="h-4 w-4" />
           <span>Logout</span>
           {/* <LogOut className="h-4 w-4 text-red-400" />
