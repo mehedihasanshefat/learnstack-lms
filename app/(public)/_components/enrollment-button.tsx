@@ -14,7 +14,7 @@ function EnrollmentButton({ courseId }: { courseId: string }) {
         enrollInCourseAction(courseId),
       );
       if (error) {
-        toast.error("Failed to enroll in course. Please try again.");
+        toast.error("Please Sign-in to enroll in this course.");
         return;
       }
       if (result.status === "success") {

@@ -2,6 +2,7 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
+import Link from "next/link";
 function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20">
@@ -51,12 +52,16 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <Button size="lg" className="gap-2">
-            Start Learning <ArrowRight size={20} />
-          </Button>
-          <Button size="lg" variant="outline">
-            Browse Courses
-          </Button>
+          <Link href="/sign-in">
+            <Button size="lg" className="gap-2">
+              Start Learning <ArrowRight size={20} />
+            </Button>
+          </Link>
+          <Link href="/courses">
+            <Button size="lg" variant="outline">
+              Browse Courses
+            </Button>
+          </Link>
         </motion.div>
 
         <motion.div
